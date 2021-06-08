@@ -1,8 +1,10 @@
 from .Gui1 import *
+from Model.BookModel import *
 
 class BaseView(MyFrame1):
 	"""docstring for BookView"""
 	def __init__(self):
+		self.BookModel = BookModel()
 		# BookController.__init__(self,parent)
 		MyFrame1.__init__(self,parent=None)
 
@@ -39,20 +41,19 @@ class BaseView(MyFrame1):
 			return True
 
 	def update_Grid(self):
-		img = wx.Bitmap("../SET.png", wx.BITMAP_TYPE_PNG)
-		self.rd = MyImageRenderer(img)
-        # Buttons coordinates
-		numRows = self.bookTable.GetNumberRows()
-		for y in range(numRows):
-			self.rd.rend_row = y
-			self.rd.rend_col = 6
-			self.bookTable.SetCellRenderer(self.rd.rend_row, self.rd.rend_col, self.rd)
-			self.bookTable.SetCellRenderer(self.rd.rend_row, self.rd.rend_col+1, self.rd)
-			self.bookTable.SetColSize(self.rd.rend_col, img.GetWidth())
-			self.bookTable.SetColSize(self.rd.rend_col+1, img.GetWidth())
-			self.bookTable.SetRowSize(self.rd.rend_row, img.GetHeight())
-			self.bookTable.SetReadOnly(self.rd.rend_row, self.rd.rend_col, True)
-			self.bookTable.SetReadOnly(self.rd.rend_row, self.rd.rend_col+1, True)
+		button = ["Assets/edit.png", "Assets/delete.png"]
+		for i in button:
+			img = wx.Bitmap(i, wx.BITMAP_TYPE_PNG)
+			self.rd = MyImageRenderer(img)
+        	# Buttons coordinates
+			numRows = self.BookModel.getCount()
+			for y in range(numRows):
+				self.rd.rend_row = y
+				self.rd.rend_col = 6
+				if i == "Assets/edit.png" :
+					self.bookTable.SetCellRenderer(self.rd.rend_row, self.rd.rend_col, self.rd)
+				else:
+					self.bookTable.SetCellRenderer(self.rd.rend_row, self.rd.rend_col+1, self.rd)
 
 	# BorrowView			
 	def borrowTableRefresh(self,dataGrid):

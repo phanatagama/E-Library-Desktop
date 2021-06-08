@@ -17,3 +17,9 @@ class BookModel(BaseModel):
 	def getByID(self,idBuku):
 		query = f"SELECT * FROM {self.table_name} WHERE id='{idBuku}'"
 		return self.database.fetchall(query)
+
+	def getCount(self):
+		query = f'SELECT * FROM {self.table_name}'
+		#query = f"SELECT COUNT(*) FROM {self.table_name}"
+		a = self.database.fetchall(query)
+		return len(a)

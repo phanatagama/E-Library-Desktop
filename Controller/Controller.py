@@ -17,12 +17,16 @@ class Controller():
 		self.BaseView.bookTable.Bind( wx.grid.EVT_GRID_LABEL_LEFT_DCLICK, self.bookSortData )
 		self.BaseView.bookTable.Bind( wx.grid.EVT_GRID_SELECT_CELL, self.bookTableAction )
 		self.BaseView.btnTambahBuku.Bind( wx.EVT_BUTTON, self.onBtnTambahBuku )
+		
 		# self.BaseView.m_button39211.Bind( wx.EVT_BUTTON, self.addDataPeminjaman )
 		self.BaseView.searchBox.Bind( wx.EVT_TEXT, self.onSearchBox )	
 		self.BaseView.btnTambahPeminjaman.Bind( wx.EVT_BUTTON, self.onBtnTambahPeminjaman )	
 		self.BaseView.btnSubmit.Bind( wx.EVT_BUTTON, self.onBtnSubmit )
 		self.BaseView.searchBoxHistory.Bind( wx.EVT_TEXT, self.onSearchBoxHistory )
 		self.BaseView.comboBox.Bind( wx.EVT_COMBOBOX, self.onComboBox )
+		self.BaseView.comboBoxHistory.Bind( wx.EVT_COMBOBOX, self.onComboBoxHistory )
+		self.BaseView.Bind( wx.EVT_MENU, self.logout, id = self.BaseView.m_menuItem1.GetId() )
+		self.BaseView.Bind( wx.EVT_MENU, self.onAbout, id = self.BaseView.m_menuItem2.GetId() )
 		self.BookModel = BookModel()
 		self.BorrowModel = BorrowModel()
 		self.HistoryModel = HistoryModel()
@@ -42,14 +46,29 @@ class Controller():
 		else:
 			self.BaseView.modalFail("Email/Password Salah!!!")
 
-
-
 	# Book Function
 	def onComboBox(self,event):
+		self.BaseView.searchBox.SetValue('')
 		if event.GetString() != "":
 			data = self.BookModel.searchByKeyword(event.GetString())
 			return self.BaseView.bookTableRefresh(data)
 		return self.BaseView.bookTableRefresh(self.bookGetData())
+
+	def onComboBoxHistory( self, event ):
+		self.BaseView.searchBoxHistory.SetValue('')
+		value = event.GetString()
+		time = datetime.now()
+		if value != "":
+			if value == "Tahun Ini":
+				data = self.HistoryModel.searchByKeyword(str(time.year))
+				return self.BaseView.historyTableRefresh(data)
+			elif value == "Bulan Ini":
+				data = self.HistoryModel.searchByKeyword(str(time.month))
+				return self.BaseView.historyTableRefresh(data)
+			elif value == "Hari Ini":
+				data = self.HistoryModel.searchByKeyword(str(time.day))
+				return self.BaseView.historyTableRefresh(data)
+		return self.BaseView.historyTableRefresh(self.historyGetData())
 
 	def bookGetData(self):
 		return self.BookModel.getData()
@@ -85,6 +104,7 @@ class Controller():
 		else:
 			self.dialog = BookModal(None,title,data[0],data[1],data[2],data[3],data[4],data[5])
 		self.dialog.m_button6.Bind( wx.EVT_BUTTON, self.btnSimpanBuku )
+		self.dialog.btnBatal.Bind( wx.EVT_BUTTON, self.onBtnBatal )
 		self.dialog.ShowModal()
 
 	def onBtnTambahBuku( self, event ):
@@ -106,6 +126,9 @@ class Controller():
 		self.dialog.Destroy()
 		self.BaseView.bookTableRefresh(self.bookGetData())
 	
+	def onBtnBatal(self, event):
+		return self.dialog.Destroy()
+
 	# Borrow Function
 	def borrowGetData(self):
 		return self.BorrowModel.borrowGetData()	
@@ -147,16 +170,25 @@ class Controller():
 
 	def onBtnSubmit(self,event):
 		id_borrow = self.BaseView.inputIdMahasiswa2.GetValue()
+		current_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 		if self.HistoryModel.validBorrow(self.borrowGetData(),id_borrow):
+			data = tuple(filter(lambda x: str(x[0])==id_borrow,self.borrowGetData()))[0]
 			tanggal_kembali,denda = self.HistoryModel.calculate(self.borrowGetData(),id_borrow)
 			self.HistoryModel.insert((id_borrow,tanggal_kembali,denda))
 			self.BorrowModel.deleteByID(id_borrow)
 			self.BaseView.borrowTableRefresh(self.borrowGetData())
-			self.BaseView.modalSuccess()
+			self.Nota = Nota1(None,data[2], data[1], data[3], current_date[:10], str(denda))
+			self.Nota.btnSelesai.Bind( wx.EVT_BUTTON, self.onBtnSelesai )
+			self.Nota.ShowModal()
 		else:
 			self.BaseView.modalFail("ID Peminjaman Tidak Ditemukan")
 		self.BaseView.historyTableRefresh(self.historyGetData())
 
+	def logout( self, event ):
+		exit()
+
+	def onAbout( self, event ):
+		wx.MessageDialog(None,"Created by Cahyadi Setia Phanatagama & I'zaz Dhiya'ulhaq",'About Program',wx.OK|wx.ICON_INFORMATION).ShowModal()
 
 # =================================================================
 
