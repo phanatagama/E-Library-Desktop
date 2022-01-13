@@ -1,0 +1,24 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "izazdhiya",
+      "name": "Izaz Dhiyaulhaq",
+      "avatar_url": "https://avatars.githubusercontent.com/u/59567289?v=4",
+      "profile": "http://github.com/izazdhiya",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "E-Library-Desktop",
+  "projectOwner": "phanatagama",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
