@@ -1,5 +1,5 @@
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 ![E-Library-Desktop](https://socialify.git.ci/phanatagama/E-Library-Desktop/image?description=1&descriptionEditable=%F0%9F%90%8D%20desktop-based%20library%20information%20management%20system%20&font=Source%20Code%20Pro&forks=1&issues=1&language=1&name=1&pattern=Charlie%20Brown&pulls=1&stargazers=1&theme=Dark)
 
@@ -55,6 +55,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="http://github.com/izazdhiya"><img src="https://avatars.githubusercontent.com/u/59567289?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Izaz Dhiyaulhaq</b></sub></a><br /><a href="https://github.com/phanatagama/E-Library-Desktop/commits?author=izazdhiya" title="Code">💻</a></td>
+    <td align="center"><a href="http://xnonymous.blogspot.com"><img src="https://avatars.githubusercontent.com/u/48324618?v=4?s=100" width="100px;" alt=""/><br /><sub><b>phanatagama</b></sub></a><br /><a href="#infra-phanatagama" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/phanatagama/E-Library-Desktop/commits?author=phanatagama" title="Code">💻</a> <a href="#design-phanatagama" title="Design">🎨</a></td>
   </tr>
 </table>
 
