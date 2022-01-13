@@ -13,6 +13,17 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "phanatagama",
+      "name": "phanatagama",
+      "avatar_url": "https://avatars.githubusercontent.com/u/48324618?v=4",
+      "profile": "http://xnonymous.blogspot.com",
+      "contributions": [
+        "infra",
+        "code",
+        "design"
+      ]
     }
   ],
   "contributorsPerLine": 7,
